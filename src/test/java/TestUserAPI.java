@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import static io.restassured.RestAssured.*;
 
 public class TestUserAPI {
+
+    
     @Test
     public void shouldTestUserAPI(){
         //Arange
