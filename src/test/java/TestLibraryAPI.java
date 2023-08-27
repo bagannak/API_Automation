@@ -22,12 +22,12 @@ public class TestLibraryAPI {
                 {"abd2","171"},
                 {"VR2","181"},
                 {"BK2","121"},
-                {"",""}
+                {"c2","3"}
         };
     }
     @Test(dataProvider = "BooksData", priority = 1)
     public void shouldTestPostAPI(String isbn, String aisle){
-        //Arange
+        //Arrange
        response = given().log().all().header("Content-Type","application/json")
                .body(LibraryAPIPayload.addBook(isbn,aisle))
                 .when().post("/Library/Addbook.php")
@@ -41,7 +41,7 @@ public class TestLibraryAPI {
 
    @Test(dataProvider = "BooksData",priority = 2)
    public void shouldTestDeleteAPI(String isbn, String aisle){
-       //Arange
+       //Arrange
        response = given().log().all().header("Content-Type","application/json")
                .body(LibraryAPIPayload.deleteBook(isbn,aisle))
                .when().post("/Library/DeleteBook.php")
@@ -50,4 +50,5 @@ public class TestLibraryAPI {
 
        //Assert
    }
+
 }
