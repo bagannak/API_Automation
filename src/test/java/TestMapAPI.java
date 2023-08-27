@@ -58,7 +58,6 @@ public class TestMapAPI {
         //Act
          jsonPath = RawToJson.rawToJson(response);
         String status = jsonPath.getString("msg");
-//        System.out.println(status);
         //Assert
         Assert.assertEquals(status,"Address successfully updated");
     }
