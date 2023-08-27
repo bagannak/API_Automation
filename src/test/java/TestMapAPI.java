@@ -1,9 +1,14 @@
-import Payload.Payload;
+import Payload.MapAPIPayload;
+import convertrawtojson.RawToJson;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -17,24 +22,24 @@ public class TestMapAPI {
 
     }
     @Test(priority = 1)
-    public void shouldTestPostAPI(){
+    public void shouldTestPostAPI() throws IOException {
         //Arange
        response = given().log().all()
         .queryParam("key","qaclick123")
                .header("Content-Type","application/json")
-                .body(Payload.addPlace())
+//                .body(MapAPIPayload.addPlace())
+               //providing json data to the body from external file
+               .body(new String(Files.readAllBytes(Paths.get("/Users/testvagrant/Desktop/newPlace.json"))))
                 .when().post("maps/api/place/add/json")
                 .then()
                 .assertThat()
                 .statusCode(200)
                 .body("scope",equalTo("APP"))
-                .header("Connection","Keep-Alive")
                 .extract().response().asPrettyString();
         //Act
-//        System.out.println(response);
-        jsonPath= new JsonPath(response);
+        jsonPath= RawToJson.rawToJson(response);
         placeId = jsonPath.getString("place_id");
-//        System.out.println("Place Id : "+placeId);
+
         String status = jsonPath.getString("status");
         //Assert
         Assert.assertEquals(status,"OK","status is not ok");
@@ -45,13 +50,13 @@ public class TestMapAPI {
       response = given().log().all()
                 .queryParam("key","qaclick123")
                 .header("Content-Type","application/json")
-                .body(Payload.updatePlace(placeId))
+                .body(MapAPIPayload.updatePlace(placeId))
                 .when().put("maps/api/place/update/json")
                 .then().assertThat().statusCode(200)
                 .extract().response().asPrettyString();
 
         //Act
-         jsonPath = new JsonPath(response);
+         jsonPath = RawToJson.rawToJson(response);
         String status = jsonPath.getString("msg");
 //        System.out.println(status);
         //Assert
