@@ -46,6 +46,7 @@ public class TestMapAPI {
     }
     @Test(dependsOnMethods = "shouldTestPostAPI",priority = 2)
     public void shouldTestPutAPI(){
+
         //Arange
       response = given().log().all()
                 .queryParam("key","qaclick123")
