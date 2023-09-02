@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class ComplexJsonTest {
     @Test
     public void shouldTestSomething(){
-        //Arange
+        //Arrange
         JsonPath js = new JsonPath(MapAPIPayload.exampleJSON());
         int size=js.get("courses.size()");
         int purchaseAmount = js.getInt("dashboard.purchaseAmount");

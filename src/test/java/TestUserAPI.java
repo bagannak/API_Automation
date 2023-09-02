@@ -3,16 +3,12 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-
-import static io.restassured.RestAssured.*;
-
 public class TestUserAPI {
 
     
     @Test
     public void shouldTestUserAPI(){
-        //Arange
+        //Arrange
         Response response = RestAssured.get("https://reqres.in/api/users?page=2");
 
         //Act

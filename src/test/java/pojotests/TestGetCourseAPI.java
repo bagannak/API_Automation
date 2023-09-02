@@ -31,7 +31,8 @@ public class TestGetCourseAPI {
         driver.findElement(By.cssSelector("input[type=password]")).sendKeys(Keys.ENTER);
         Thread.sleep(3000);
 
-        String url = driver.getCurrentUrl();
+        String url;
+        url = driver.getCurrentUrl();
         String partialUrl = url.split("code=")[1];
         String code =partialUrl.split("&scope")[0];
         String accessTokenResponse = given().urlEncodingEnabled(false)
@@ -54,9 +55,7 @@ public class TestGetCourseAPI {
         System.out.println(courses.getWebAutomation().get(0).getCourseTitle()+"\n"+courses.getApi().get(1).getCourseTitle());
 
         List<WebAutomation> webAutomationCourses = courses.getWebAutomation();
-        webAutomationCourses.forEach((course)->{
-            System.out.println(course.getCourseTitle());
-        });
+        webAutomationCourses.forEach((course)-> System.out.println(course.getCourseTitle()));
         driver.quit();
 
     }

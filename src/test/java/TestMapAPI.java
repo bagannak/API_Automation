@@ -23,7 +23,7 @@ public class TestMapAPI {
     }
     @Test(priority = 1)
     public void shouldTestPostAPI() throws IOException {
-        //Arange
+        //Arrange
        response = given().log().all()
         .queryParam("key","qaclick123")
                .header("Content-Type","application/json")
@@ -47,7 +47,7 @@ public class TestMapAPI {
     @Test(dependsOnMethods = "shouldTestPostAPI",priority = 2)
     public void shouldTestPutAPI(){
 
-        //Arange
+        //Arrange
       response = given().log().all()
                 .queryParam("key","qaclick123")
                 .header("Content-Type","application/json")
@@ -64,7 +64,7 @@ public class TestMapAPI {
     }
     @Test(dependsOnMethods = "shouldTestPostAPI",priority = 3)
     public void shouldTestGetAPI(){
-        //Arange
+        //Arrange
         response = given().log().all()
                 .queryParam("key","qaclick123").queryParam("place_id",placeId)
                 .when().get("maps/api/place/get/json")

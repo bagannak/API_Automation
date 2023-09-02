@@ -36,7 +36,7 @@ public class serializeTest {
 		addPlace.setPhone_number("(+91) 983 893 3937");
 		addPlace.setWebsite("https://rahulshettyacademy.com");
 		addPlace.setName("Frontline house");
-		List<String> type = new ArrayList<String>();
+		List<String> type = new ArrayList<>();
 		type.add("shoe park");
 		type.add("shop");
 
