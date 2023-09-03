@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AddProductResponse {
-    private String productId;
-    private String message;
-
+public class Order {
+    private String country;
+    private String productOrderedId;
 }
