@@ -23,8 +23,13 @@ public class EcommerceAPITest {
     @BeforeClass
     public void getLogInResponse() {
         //req and res spec build
-        requestSpecification = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").build();
-        responseSpecification = new ResponseSpecBuilder().expectStatusCode(201).build();
+        requestSpecification = new RequestSpecBuilder()
+                .setBaseUri("https://rahulshettyacademy.com")
+                .setRelaxedHTTPSValidation()
+                .build();
+        responseSpecification = new ResponseSpecBuilder()
+                .expectStatusCode(201)
+                .build();
         //creating pojo class obj
         LogInDetails logInDetails = new LogInDetails();
         logInDetails.setUserEmail("bk123@gmail.com");
@@ -55,10 +60,13 @@ public class EcommerceAPITest {
         paramsList.put("productDescription","Color Image");
         paramsList.put("productFor","women");
         //Act
-        RequestSpecification addProductReq = given().spec(requestSpecification).header("Authorization",token).params(paramsList)
-                .multiPart("productImage", new File("/Users/testvagrant/Desktop/Screenshot 2023-09-01 at 2.40.49 PM.png"));
+        RequestSpecification addProductReq = given().spec(requestSpecification)
+                .header("Authorization",token).params(paramsList)
+                .multiPart("productImage",
+                        new File("/Users/testvagrant/Desktop/Screenshot 2023-09-01 at 2.40.49 PM.png"));
         AddProductResponse addProductResponse = addProductReq.when().post("/api/ecom/product/add-product")
-                .then().spec(responseSpecification).extract().response().as(AddProductResponse.class);
+                .then().spec(responseSpecification)
+                .extract().response().as(AddProductResponse.class);
         productId = addProductResponse.getProductId();
         String message = addProductResponse.getMessage();
         //Assert
@@ -76,7 +84,10 @@ public class EcommerceAPITest {
         orders.add(order);
         orderDetails.setOrders(orders);
         //Act
-        RequestSpecification createOrderRequest = given().spec(requestSpecification).header("Authorization",token).header("Content-Type","application/json").body(orderDetails);
+        RequestSpecification createOrderRequest = given().spec(requestSpecification)
+                .header("Authorization",token)
+                .header("Content-Type","application/json")
+                .body(orderDetails);
         OrderResponse orderResponse = createOrderRequest.when().post("/api/ecom/order/create-order")
                 .then().spec(responseSpecification).log().all().extract().response().as(OrderResponse.class);
          orderId = orderResponse.getOrders();
@@ -91,7 +102,9 @@ public class EcommerceAPITest {
         System.out.println(orderId.get(0));
         RequestSpecification getOrderDetailsRequest = given().spec(requestSpecification)
                 .queryParam("id", orderId.get(0)).header("Authorization", token);
-        GetOrderDetailsResponse getOrderDetailsResponse = getOrderDetailsRequest.when().get("/api/ecom/order/get-orders-details")
+        GetOrderDetailsResponse getOrderDetailsResponse;
+        getOrderDetailsResponse = getOrderDetailsRequest.when()
+                .get("/api/ecom/order/get-orders-details")
                 .then().log().all().statusCode(200)
                 .extract().response().as(GetOrderDetailsResponse.class);
         //Assert
@@ -103,10 +116,14 @@ public class EcommerceAPITest {
         //Arrange
         
         //Act
-        RequestSpecification deleteProductRequest = given().spec(requestSpecification).pathParam("productId", productId)
+        RequestSpecification deleteProductRequest = given().spec(requestSpecification)
+                .pathParam("productId", productId)
                 .header("Authorization", token);
-        DeleteProduct deleteProduct = deleteProductRequest.when().delete("/api/ecom/product/delete-product/{productId}")
-                .then().log().all().extract().response().as(DeleteProduct.class);
+        DeleteProduct deleteProduct = deleteProductRequest.when()
+                .delete("/api/ecom/product/delete-product/{productId}")
+                .then().log().all()
+                .extract().response()
+                .as(DeleteProduct.class);
         String message = deleteProduct.getMessage();
 
         //Assert

@@ -26,7 +26,7 @@ public class SpecBuilderTest {
         addPlace.setPhone_number("(+91) 983 893 3937");
         addPlace.setWebsite("https://rahulshettyacademy.com");
         addPlace.setName("Frontline house");
-        List<String> myList = new ArrayList<String>();
+        List<String> myList = new ArrayList<>();
         myList.add("shoe park");
         myList.add("shop");
 

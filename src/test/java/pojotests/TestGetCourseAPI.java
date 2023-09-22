@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import pojo.getcourse.Courses;
 import pojo.getcourse.GetCourse;
 import pojo.getcourse.WebAutomation;
-
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
@@ -52,8 +51,6 @@ public class TestGetCourseAPI {
                 .then().assertThat().statusCode(200).extract().response()
                 .as(GetCourse.class);
         Courses courses = jsonResponse.getCourses();
-        System.out.println(courses.getWebAutomation().get(0).getCourseTitle()+"\n"+courses.getApi().get(1).getCourseTitle());
-
         List<WebAutomation> webAutomationCourses = courses.getWebAutomation();
         webAutomationCourses.forEach((course)-> System.out.println(course.getCourseTitle()));
         driver.quit();

@@ -25,6 +25,7 @@ public class JiraAPITest {
                 .filter(sessionFilter)
                 .when().post("/rest/auth/1/session")
                 .then().assertThat().statusCode(200).log().all();
+        
     }
 
     @Test(dependsOnMethods = "shouldTestLogin")

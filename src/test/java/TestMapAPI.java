@@ -30,7 +30,7 @@ public class TestMapAPI {
 //                .body(MapAPIPayload.addPlace())
                //providing json data to the body from external file
                .body(new String(Files.readAllBytes(Paths.get("/Users/testvagrant/Desktop/newPlace.json"))))
-                .when().post("maps/api/place/add/json")
+                .when().post("/maps/api/place/add/json")
                 .then()
                 .assertThat()
                 .statusCode(200)

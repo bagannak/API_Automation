@@ -19,10 +19,10 @@ public class TestLibraryAPI {
     @DataProvider(name = "BooksData")
     public Object[][] bookDataProvider(){
         return new Object[][]{
-                {"abd2","171"},
-                {"VR2","181"},
-                {"BK2","121"},
-                {"c2","3"}
+                {"ab1d2","171"},
+                {"V1R2","181"},
+                {"B1K2","121"},
+                {"c12","3"}
         };
     }
     @Test(dataProvider = "BooksData", priority = 1)
@@ -35,9 +35,11 @@ public class TestLibraryAPI {
         //Act
         jsonPath = RawToJson.rawToJson(response);
         String status = jsonPath.getString("Msg");
+        String id = jsonPath.getString("ID");
 
         //Assert
         Assert.assertEquals(status,"successfully added");
+        Assert.assertEquals(id,isbn+aisle);
     }
 
    @Test(dataProvider = "BooksData",priority = 2)
