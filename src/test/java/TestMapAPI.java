@@ -29,7 +29,7 @@ public class TestMapAPI {
                .header("Content-Type","application/json")
 //                .body(MapAPIPayload.addPlace())
                //providing json data to the body from external file
-               .body(new String(Files.readAllBytes(Paths.get("/Users/testvagrant/Desktop/newPlace.json"))))
+               .body(new String(Files.readAllBytes(Paths.get("/Users/testvagrant/Baganna/API_Automation/src/main/resources/newPlace.json"))))
                 .when().post("/maps/api/place/add/json")
                 .then()
                 .assertThat()
